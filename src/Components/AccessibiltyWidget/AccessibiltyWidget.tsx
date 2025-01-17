@@ -6,6 +6,9 @@ import { ContrastControl } from "./ContrastControl";
 import { TextSpacingControl } from "./TextSpacingControl";
 import { useApplyAccessibility } from "../../hooks/useApplyAccessibility";
 import { CursorControl } from "./CursorControl";
+import { ScreenReaderControl } from "./ScreenReaderControl";
+import KeyboardNavigationToggle from './KeyboardNavigationToggle';
+
 
 export const AccessibilityWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +37,8 @@ export const AccessibilityWidget = () => {
           <ContrastControl />
           <TextSpacingControl />
           <CursorControl />
+          <KeyboardNavigationToggle />
+          {/* <ScreenReaderControl /> */}
         </div>
       )}
     </div>

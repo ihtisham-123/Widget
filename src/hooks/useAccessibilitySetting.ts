@@ -8,6 +8,7 @@ interface AccessibilityState {
     letterSpacing: number;
     wordSpacing: number;
     lineHeight: number;
+    keyboardNavigationEnabled: boolean;
     setFontSize: (size: number) => void;
     setContrast: (mode: 'default' | 'high-contrast' | 'dark') => void;
     setLetterSpacing: (spacing: number) => void;
@@ -17,6 +18,9 @@ interface AccessibilityState {
     cursorColor: string;
     setCursorSize: (size: 'default' | 'large' | 'larger') => void;
     setCursorColor: (color: string) => void;
+    toggleKeyboardNavigation: () => void;
+
+  
   }
 
 export const useAccessibilitySettings = create<AccessibilityState>()(
@@ -27,6 +31,7 @@ export const useAccessibilitySettings = create<AccessibilityState>()(
         letterSpacing: 0,
         wordSpacing: 0,
         lineHeight: 1.5,
+        keyboardNavigationEnabled: false,
         setFontSize: (size) => set({ fontSize: size }),
         setContrast: (mode) => set({ contrast: mode }),
         setLetterSpacing: (spacing) => set({ letterSpacing: spacing }),
@@ -36,7 +41,10 @@ export const useAccessibilitySettings = create<AccessibilityState>()(
         cursorColor: '#000000',
         setCursorSize: (size) => set({ cursorSize: size }),
         setCursorColor: (color) => set({ cursorColor: color }),
-     }),
+    toggleKeyboardNavigation: () => 
+        set((state) => ({ keyboardNavigationEnabled: !state.keyboardNavigationEnabled })),
+    
+      }),
     {
       name: 'accessibility-settings',
     }
