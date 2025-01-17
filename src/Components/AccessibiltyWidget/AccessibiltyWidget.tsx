@@ -1,10 +1,11 @@
 // src/components/AccessibilityWidget/AccessibilityWidget.tsx
-import React, { useState } from 'react';
-import { Eye } from 'lucide-react';
-import { FontSizeControl } from './FontSizeControl';
-import { ContrastControl } from './ContrastControl';
-import { TextSpacingControl } from './TextSpacingControl';
-import { useApplyAccessibility } from '../../hooks/useApplyAccessibility';
+import React, { useState } from "react";
+import { Eye } from "lucide-react";
+import { FontSizeControl } from "./FontSizeControl";
+import { ContrastControl } from "./ContrastControl";
+import { TextSpacingControl } from "./TextSpacingControl";
+import { useApplyAccessibility } from "../../hooks/useApplyAccessibility";
+import { CursorControl } from "./CursorControl";
 
 export const AccessibilityWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,11 +27,13 @@ export const AccessibilityWidget = () => {
           className="absolute bottom-16 right-0 w-72 bg-white rounded-lg shadow-xl p-4 space-y-6"
           role="dialog"
           aria-label="Accessibility Controls"
+          style={{ maxHeight: "400px", overflowY: "auto" }}
         >
           <h2 className="text-lg font-semibold">Accessibility Settings</h2>
           <FontSizeControl />
           <ContrastControl />
           <TextSpacingControl />
+          <CursorControl />
         </div>
       )}
     </div>
