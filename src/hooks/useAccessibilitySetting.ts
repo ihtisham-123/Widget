@@ -13,7 +13,11 @@ interface AccessibilityState {
     setLetterSpacing: (spacing: number) => void;
     setWordSpacing: (spacing: number) => void;
     setLineHeight: (height: number) => void;
-}
+    cursorSize: 'default' | 'large' | 'larger';
+    cursorColor: string;
+    setCursorSize: (size: 'default' | 'large' | 'larger') => void;
+    setCursorColor: (color: string) => void;
+  }
 
 export const useAccessibilitySettings = create<AccessibilityState>()(
   persist(
@@ -28,6 +32,10 @@ export const useAccessibilitySettings = create<AccessibilityState>()(
         setLetterSpacing: (spacing) => set({ letterSpacing: spacing }),
         setWordSpacing: (spacing) => set({ wordSpacing: spacing }),
         setLineHeight: (height) => set({ lineHeight: height }),
+        cursorSize: 'default',
+        cursorColor: '#000000',
+        setCursorSize: (size) => set({ cursorSize: size }),
+        setCursorColor: (color) => set({ cursorColor: color }),
      }),
     {
       name: 'accessibility-settings',
