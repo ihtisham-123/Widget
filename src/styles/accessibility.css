@@ -1,0 +1,23 @@
+.default {
+    /* Default theme */
+    --bg-primary: #ffffff;
+    --text-primary: #000000;
+  }
+  
+  .high-contrast {
+    --bg-primary: #ffffff;
+    --text-primary: #000000;
+    filter: contrast(150%) brightness(120%);
+  }
+  
+  .dark {
+    --bg-primary: #1a1a1a;
+    --text-primary: #ffffff;
+    filter: invert(100%) hue-rotate(180deg);
+  }
+  
+  /* Apply CSS variables */
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
