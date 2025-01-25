@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, PauseCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
+import { Volume2, VolumeX, PauseCircle } from "lucide-react";
 
 interface NavigableElement extends Element {
   textContent: string;
@@ -18,7 +18,9 @@ const KeyboardNavigationToggle = () => {
   // State management
   const [activeElementIndex, setActiveElementIndex] = useState<number>(-1);
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
-  const [navigableElements, setNavigableElements] = useState<NavigableElement[]>([]);
+  const [navigableElements, setNavigableElements] = useState<
+    NavigableElement[]
+  >([]);
   const [settings, setSettings] = useState<AccessibilitySettings>({
     reducedMotion: false,
     keyboardNavigation: false,
@@ -41,47 +43,49 @@ const KeyboardNavigationToggle = () => {
       if (!isNavigationActive) return;
 
       switch (e.key) {
-        case 'ArrowDown':
-        case 'ArrowRight':
+        case "ArrowDown":
+        case "ArrowRight":
           e.preventDefault();
-          setActiveElementIndex(prev => 
+          setActiveElementIndex((prev) =>
             prev < navigableElements.length - 1 ? prev + 1 : prev
           );
           break;
-        case 'ArrowUp':
-        case 'ArrowLeft':
+        case "ArrowUp":
+        case "ArrowLeft":
           e.preventDefault();
-          setActiveElementIndex(prev => 
-            prev > 0 ? prev - 1 : prev
-          );
+          setActiveElementIndex((prev) => (prev > 0 ? prev - 1 : prev));
           break;
-        case 'Enter':
-        case ' ':
+        case "Enter":
+        case " ":
           e.preventDefault();
           if (activeElementIndex >= 0) {
             readElement(navigableElements[activeElementIndex]);
           }
           break;
-        case 'Escape':
+        case "Escape":
           stopSpeaking();
           break;
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isNavigationActive, activeElementIndex, navigableElements]);
 
   // Update focus and scroll
   useEffect(() => {
-    if (isNavigationActive && activeElementIndex >= 0 && navigableElements[activeElementIndex]) {
+    if (
+      isNavigationActive &&
+      activeElementIndex >= 0 &&
+      navigableElements[activeElementIndex]
+    ) {
       const element = navigableElements[activeElementIndex];
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      element.classList.add('navigation-focus');
-      
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+      element.classList.add("navigation-focus");
+
       navigableElements.forEach((el, index) => {
         if (index !== activeElementIndex) {
-          el.classList.remove('navigation-focus');
+          el.classList.remove("navigation-focus");
         }
       });
     }
@@ -90,9 +94,9 @@ const KeyboardNavigationToggle = () => {
   // Handle motion reduction
   useEffect(() => {
     if (settings.reducedMotion) {
-      document.body.classList.add('reduce-motion');
+      document.body.classList.add("reduce-motion");
     } else {
-      document.body.classList.remove('reduce-motion');
+      document.body.classList.remove("reduce-motion");
     }
   }, [settings.reducedMotion]);
 
@@ -102,11 +106,11 @@ const KeyboardNavigationToggle = () => {
       return;
     }
 
-    let textToRead = '';
-    
-    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-      textToRead = element.placeholder || element.value || element.type || '';
-    } else if (element.tagName === 'A') {
+    let textToRead = "";
+
+    if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+      textToRead = element.placeholder || element.value || element.type || "";
+    } else if (element.tagName === "A") {
       textToRead = `Link: ${element.textContent}`;
     } else if (element.tagName.match(/^H[1-6]$/)) {
       textToRead = `Heading: ${element.textContent}`;
@@ -118,7 +122,7 @@ const KeyboardNavigationToggle = () => {
     utteranceRef.current.rate = settings.speechRate;
     utteranceRef.current.onend = () => setIsSpeaking(false);
     utteranceRef.current.onerror = () => setIsSpeaking(false);
-    
+
     window.speechSynthesis.speak(utteranceRef.current);
     setIsSpeaking(true);
   };
@@ -129,9 +133,9 @@ const KeyboardNavigationToggle = () => {
   };
 
   const toggleReducedMotion = () => {
-    setSettings(prev => ({
+    setSettings((prev) => ({
       ...prev,
-      reducedMotion: !prev.reducedMotion
+      reducedMotion: !prev.reducedMotion,
     }));
   };
 
@@ -145,9 +149,9 @@ const KeyboardNavigationToggle = () => {
 
   const toggleNavigation = () => {
     setIsNavigationActive(!isNavigationActive);
-    const message = isNavigationActive 
-      ? 'Keyboard navigation disabled' 
-      : 'Keyboard navigation enabled';
+    const message = isNavigationActive
+      ? "Keyboard navigation disabled"
+      : "Keyboard navigation enabled";
     const utterance = new SpeechSynthesisUtterance(message);
     window.speechSynthesis.speak(utterance);
   };
@@ -158,7 +162,7 @@ const KeyboardNavigationToggle = () => {
         onClick={toggleNavigation}
         className="px-4 py-2 rounded-md bg-blue-500 text-white mb-4"
       >
-        {isNavigationActive ? 'Disable Navigation' : 'Enable Navigation'}
+        {isNavigationActive ? "Disable Navigation" : "Enable Navigation"}
       </button>
 
       {/* Accessibility Controls */}
@@ -168,20 +172,24 @@ const KeyboardNavigationToggle = () => {
           <div className="flex-1">
             <h3 className="font-medium">Reduced Motion</h3>
             <p className="text-sm text-gray-600">
-              {settings.reducedMotion ? 'Animations are reduced' : 'Standard animations'}
+              {settings.reducedMotion
+                ? "Animations are reduced"
+                : "Standard animations"}
             </p>
           </div>
           <button
             onClick={toggleReducedMotion}
             className={`
               px-4 py-2 rounded-md transition-colors
-              ${settings.reducedMotion 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
+              ${
+                settings.reducedMotion
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }
             `}
             aria-pressed={settings.reducedMotion}
           >
-            {settings.reducedMotion ? 'Enabled' : 'Disabled'}
+            {settings.reducedMotion ? "Enabled" : "Disabled"}
           </button>
         </div>
       </div>
@@ -198,20 +206,24 @@ const KeyboardNavigationToggle = () => {
             <div className="flex-1">
               <h3 className="font-medium">Screen Reader</h3>
               <p className="text-sm text-gray-600">
-                {isSpeaking ? 'Screen reader is active' : 'Screen reader is inactive'}
+                {isSpeaking
+                  ? "Screen reader is active"
+                  : "Screen reader is inactive"}
               </p>
             </div>
             <button
               onClick={toggleScreenReader}
               className={`
-                px-4 py-2 rounded-md transition-colors
-                ${isSpeaking 
-                  ? 'bg-blue-500 text-white' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
-              `}
+    px-4 py-2 rounded-md transition-colors
+    ${
+      isSpeaking
+        ? "bg-blue-500 text-white"
+        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+    }
+  `}
               aria-pressed={isSpeaking}
             >
-              {isSpeaking ? 'Stop' : 'Start'}
+              {isSpeaking ? "Stop" : "Start"}
             </button>
           </div>
         </div>

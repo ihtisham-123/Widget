@@ -19,6 +19,8 @@ export const useApplyAccessibility = () => {
       document.body.classList.remove('default', 'high-contrast', 'dark');
       // Add current contrast class
       document.body.classList.add(contrast);
+
+      //cursor-----------------------------
       if (cursorSize === 'default') {
         document.body.style.cursor = 'auto';
         document.documentElement.style.setProperty('--cursor-color', cursorColor);
