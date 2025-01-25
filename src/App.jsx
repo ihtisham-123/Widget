@@ -1,6 +1,6 @@
 
 import { AccessibilityWidget } from "./Components/AccessibiltyWidget/AccessibiltyWidget";
-import "./styles/accessibility.css";
+
 import React, { useState } from "react";
 
 function App({ Component, pageProps }) {
