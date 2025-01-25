@@ -27,3 +27,21 @@ export const ContrastControl = () => {
     </button>
   );
 };
+
+
+
+//-----------------
+// return (
+//   <button
+//     onClick={handleContrastChange}
+//     className="flex items-center gap-2 p-2 w-full rounded transition-colors duration-200"
+//     style={{
+//       backgroundColor: contrast === 'dark' ? 'rgba(255, 255, 255, 0.1)' : undefined,
+//     }}
+//     aria-label={`Change contrast mode. Current mode: ${contrast}`}
+//   >
+//     <Sun className="h-4 w-4" />
+//     <span className="text-sm">
+//       Contrast: {contrast.charAt(0).toUpperCase() + contrast.slice(1)}
+//     </span>
+//   </button>
